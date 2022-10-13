@@ -4,9 +4,10 @@ import { useRoute } from 'vue-router'
 import useAPI from '@/composables/useAPI'
 
 import BaseTitle from '@/components/BaseTitle.vue'
+import useColor from '@/composables/useColor'
 
 const route = useRoute()
-
+const colors = useColor()
 const api = useAPI()
 const question = ref(null)
 const answers = ref([])
@@ -33,17 +34,22 @@ onMounted(async () => {
     <BaseTitle> {{ question.category }} </BaseTitle>
     <p class="question">{{ question.question }}</p>
     <div class="answers">
-      <div v-for="answer in answers" :key="answer.id" class="answer">
+      <div
+        v-for="answer in answers"
+        :key="answer.id"
+        :class="colors.getColor(answer.id)"
+        class="answer"
+      >
         {{ answer.answer }}
       </div>
     </div>
   </div>
-  <div v-else>Loading</div>
+  <div v-else class="loading">Loading...</div>
 </template>
 
 <style lang="postcss" scoped>
 .question-container {
-  @apply flex h-full flex-col items-center gap-8;
+  @apply flex h-full w-full flex-col items-center gap-8;
 
   & .question {
     @apply text-center text-2xl font-bold;
@@ -51,8 +57,11 @@ onMounted(async () => {
   & .answers {
     @apply grid w-full flex-grow grid-cols-2  gap-8;
     & .answer {
-      @apply flex min-w-full items-center justify-center bg-red-400 text-4xl text-white;
+      @apply flex min-w-full items-center justify-center text-4xl text-white;
     }
   }
+}
+.loading {
+  @apply flex h-full w-full items-center justify-center text-7xl;
 }
 </style>
