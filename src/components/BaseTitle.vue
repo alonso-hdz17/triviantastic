@@ -17,7 +17,7 @@
   }
 
   & .title {
-    @apply text-5xl font-semibold tracking-widest text-slate-700;
+    @apply text-center text-5xl font-semibold tracking-widest text-slate-700;
   }
 }
 </style>
