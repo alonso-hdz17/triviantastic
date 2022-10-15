@@ -12,7 +12,7 @@ onMounted(async () => {
 
 <template>
   <BaseTitle>
-    <template #logo> <img src="logo.svg" alt="logo" /></template> Triviantastic
+    <template #logo> <img src="/logo.svg" alt="logo" /></template> Triviantastic
   </BaseTitle>
   <div v-if="categories" class="categories">
     <RouterLink
