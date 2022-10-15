@@ -11,8 +11,8 @@ import useScore from '@/composables/useScore'
 import BaseTitle from '@/components/BaseTitle.vue'
 import useColor from '@/composables/useColor'
 import DifficultyChip from '@/components/DifficultyChip.vue'
-import router from '@/router'
 
+const router = useRouter()
 const route = useRoute()
 const colors = useColor()
 const api = useAPI()
