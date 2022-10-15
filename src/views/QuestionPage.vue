@@ -3,6 +3,8 @@ import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { shuffle } from 'lodash-es'
 
+import NotificationAnswers from '@/components/NotificationAnswers.vue'
+
 import useAPI from '@/composables/useAPI'
 import useScore from '@/composables/useScore'
 
@@ -14,13 +16,21 @@ import router from '@/router'
 const route = useRoute()
 const colors = useColor()
 const api = useAPI()
+
 const question = ref(null)
 const answers = ref([])
+const showNotifications = ref(false)
+const isCorrect = ref(false)
+
 const { changeScore } = useScore()
 
 const handleAnswer = (points) => {
-  changeScore(points)
-  router.push('/')
+  isCorrect.value = points > 0
+  showNotifications.value = true
+  setTimeout(() => {
+    changeScore(points)
+    router.push('/')
+  }, 1000)
 }
 
 onMounted(async () => {
@@ -66,6 +76,7 @@ onMounted(async () => {
     <DifficultyChip :difficulty="question.difficulty" />
   </div>
   <div v-else class="loading">Loading...</div>
+  <NotificationAnswers v-if="showNotifications" :correct="isCorrect" />
 </template>
 
 <style lang="postcss" scoped>
